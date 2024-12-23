@@ -1,7 +1,4 @@
 [workspace]
 members = [
-    "uniswap-v2/contracts/factory",
-    "uniswap-v2/contracts/pair",
+    "uniswap-v2/contracts/**",
 ]
-
-

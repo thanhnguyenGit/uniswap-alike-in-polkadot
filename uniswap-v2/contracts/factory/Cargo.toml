@@ -1,22 +1,23 @@
 [package]
-name = "factory"
+name = "factory_contract"
 version = "0.1.0"
-authors = ["[your_name] <[your_email]>"]
+authors = ["Stake Technologies <devops@stake.co.jp>"]
 edition = "2021"
 
 [dependencies]
-ink = { version = "4.2.1", default-features = false }
+ink = { version = "4.0.0", default-features = false}
 
 scale = { package = "parity-scale-codec", version = "3", default-features = false, features = ["derive"] }
-scale-info = { version = "2.6", default-features = false, features = ["derive"], optional = true }
+scale-info = { version = "2.3", default-features = false, features = ["derive"], optional = true }
 
-openbrush = { tag = "4.0.0", git = "https://github.com/Brushfam/openbrush-contracts", default-features = false}
-
-[dev-dependencies]
-ink_e2e = { version = "4.2.1" }
+pair_contract = { path = "../pair", default-features = false, features = ["ink-as-dependency"] }
+openbrush = { git = "https://github.com/Brushfam/openbrush-contracts", tag = "3.0.0", default-features = false }
+uniswap_v2 = { path = "../../logics", default-features = false }
 
 [lib]
+name = "factory_contract"
 path = "lib.rs"
+crate-type = ["cdylib","rlib"]
 
 [features]
 default = ["std"]
@@ -24,8 +25,14 @@ std = [
     "ink/std",
     "scale/std",
     "scale-info/std",
-
     "openbrush/std",
+    "uniswap_v2/std",
+    "pair_contract/std",
 ]
 ink-as-dependency = []
-e2e-tests = []
+
+[profile.dev]
+overflow-checks = false
+
+[profile.release]
+overflow-checks = false
